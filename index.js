@@ -5,7 +5,7 @@ const DEFAULT_LANGUAGE = 'ru';
 const titles = Object.keys(data); // возвращает все ключи обьекта в виде массива http://old.code.mu/javascript/object/Object.keys.html
 const supportedLanguages = ['en', 'ru', 'ua'];
 
-const getLanguage = () => {
+function getLanguage () {
   const formattedLanguageFromHash = window.location.hash.slice(1); // .slice(1) убирает первый символ из строки
   return supportedLanguages.includes(formattedLanguageFromHash) ? formattedLanguageFromHash : DEFAULT_LANGUAGE;
 };
