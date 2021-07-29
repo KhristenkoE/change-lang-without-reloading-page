@@ -1,17 +1,4 @@
-const data = {
-  "memory-type": {
-    "ru": "тип памяти",
-    "en": "memory type",
-    "ua": "nип пам'яті"
-  }, 
-  "cool": {
-      "ru": "тип системы охлаждения",
-      "en": "сooling system type",
-      "ua": "тип системи охолодження"
-  }, 
-  "more": {
-      "ru": "детально о товаре",
-      "en": "more details",
-      "ua": "детально про товар"
-  }
-}
+const getData = async (tag) => {
+  const response = await fetch(`https://muteit-web-multi-language-db.maximlitvinov.workers.dev/?tag=${tag || ''}`);
+  return await response.json();
+};
