@@ -1,4 +1,4 @@
-getData().then((data) => {
+async function init () { // инициализация. Вызывается лишь один раз, ниже, лишь после того, как весь html загрузится
   const titlesBlock = document.querySelector('#titles');
   const selectElement = document.querySelector('#language');
 
@@ -37,13 +37,11 @@ getData().then((data) => {
   }
 
   function renderTitles (data, language) { // проходимся по обьекту {data} и добавляем заголовки в правильном языке в {titlesBlock}
-    titlesBlock.textContent = '';
-
-    data.forEach((page) => {
-      const PElement = document.createElement('p');
-      PElement.textContent = page[language];
-      titlesBlock.append(PElement);
-    });
+    titlesBlock.innerHTML = `
+      <ul>
+        ${Object.keys(data).map((key) => data[key][language] ? `<li>${data[key][language]}</li>` : '').join('')}
+      </ul>
+    `;
   };
 
   selectElement.addEventListener('change', function () {  // когда меняем в селекте язык - меняем хэш в url, чтобы была синхронизация данных в приложении
@@ -59,12 +57,12 @@ getData().then((data) => {
     renderOptions(language);
   });
 
-  async function init () { // инициализация. Вызывается лишь один раз, ниже, лишь после того, как весь html загрузится
-    const language = getLanguage();
+  const language = getLanguage();
+  const response = await fetch('link to worker');
+  const data = await response.json();
 
-    renderOptions(language);
-    renderTitles(data, language);
-  };
+  renderOptions(language);
+  renderTitles(data, language);
+};
 
-  document.addEventListener('DOMContentLoaded', init); // https://learn.javascript.ru/onload-ondomcontentloaded
-});
+document.addEventListener('DOMContentLoaded', init); // https://learn.javascript.ru/onload-ondomcontentloaded
